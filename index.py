@@ -1,21 +1,16 @@
 import requests
-import json
 import sys
 
 def get_activity(json):
   for activity in json:
     if not activity:
       continue
-    line = f"- Unknown activity"
     if activity['type'] == 'PushEvent':
-      line = f"- Pushed {len(activity['payload']['commits'])} commits to {activity['repo']['name']}"
-      print(line)
+      print(f"- Pushed {len(activity['payload']['commits'])} commits to {activity['repo']['name']}")
     elif activity['type'] == 'CreateEvent':
-      line = f"- Created a new repository {activity['repo']['name']}"
-      print(line)
+      print(f"- Created a new repository {activity['repo']['name']}")
     elif activity['type'] == 'WatchEvent':
-      line = f"- {activity['payload']['action'].capitalize()} repository {activity['repo']['name']}"
-      print(line)
+      print(f"- Starred repository {activity['repo']['name']}")
     
 
 def main():
