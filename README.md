@@ -25,3 +25,6 @@ A simple Python script to fetch and display recent activity of a GitHub user.
 ```bash
 python <script_name>.py gh-user-activity <GitHub-username>
 ```
+
+### Excersice link
+https://roadmap.sh/projects/github-user-activity
