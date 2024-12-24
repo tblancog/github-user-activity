@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub User Activity Viewer</title>
+    <link
+      rel="stylesheet"
+      href="https://pyscript.net/releases/2024.11.1/core.css"
+    />
+    <script
+      type="module"
+      src="https://pyscript.net/releases/2024.11.1/core.js"
+    ></script>
+  </head>
+  <body>
+    <h1>GitHub User Activity Viewer</h1>
+    <input type="text" id="username" placeholder="Enter GitHub username" />
+    <button onclick="get_user_activity()">Fetch Activity</button>
+    <ul id="activity-log"></ul>
+
+    <py-script>
+      import js import asyncio import requests async def get_user_activity():
+      username = js.document.getElementById('username').value if not username:
+      js.alert("Please enter a username.") return url =
+      f"https://api.github.com/users/{username}/events" response =
+      requests.get(url) if response.status_code == 404: js.alert(f"User
+      '{username}' not found.") return elif response.status_code != 200:
+      js.alert("Something went wrong.") return activity_log =
+      js.document.getElementById('activity-log') activity_log.innerHTML = "" #
+      Clear previous results for activity in response.json(): if
+      activity['type'] == 'PushEvent': js.document.createElement('li').innerHTML
+      = f"Pushed {len(activity['payload']['commits'])} commits to
+      {activity['repo']['name']}" elif activity['type'] == 'CreateEvent':
+      js.document.createElement('li').innerHTML = f"Created a new repository
+      {activity['repo']['name']}" elif activity['type'] == 'WatchEvent':
+      js.document.createElement('li').innerHTML = f"Starred repository
+      {activity['repo']['name']}"
+    </py-script>
+  </body>
+</html>
